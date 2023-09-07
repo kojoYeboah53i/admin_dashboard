@@ -1,3 +1,28 @@
+//wait for page to authenticate
+const wrapper = document.querySelector('.containers')
+wrapper.style.display = 'none';
+
+//check if user has access token
+const token = localStorage.getItem('tokenKey');
+
+//big condition
+if(!token){
+    window.location.href = './index.html'
+}
+
+//condition
+if(token != 'this-user-is-authenticated'){
+alert("user not logged in");
+window.location.href = './index.html'
+}
+
+//
+setTimeout(() => {
+    wrapper.style.display = 'grid';
+
+}, 2000)
+
+
 window.addEventListener('load', () => {
 
     //get admin name

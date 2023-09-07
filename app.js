@@ -62,7 +62,16 @@
                     //getting user back from server
                     const response = await result.json();
                     let name = response.name;
-                    // console.log(name)
+                    let token = response.token;
+
+                    //clear previous storage
+                    localStorage.setItem('name', "");
+                    localStorage.setItem('token', "");
+
+                    //set new storage
+                    localStorage.setItem('name', name);
+                    localStorage.setItem('tokenKey', token);
+
                     window.location.href = `./dashboard.html?name=${name}`;
                   }
 
