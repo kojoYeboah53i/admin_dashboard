@@ -201,9 +201,37 @@ window.addEventListener('load', () => {
 
     // logout
     const logout = document.querySelector(".logout");
-    logout.addEventListener("click", function (e) {
+    logout.addEventListener("click", async () => {
         e.preventDefault();
-        window.location.href = "index.html";
+        const confirmed = confirm("are u sure u want to logout");
+
+
+        //if true then logout user 
+        if(confirmed == true){
+            let token = localStorage.getItem('tokenKey');
+            console.log(token)
+            if(token != ""){
+                
+                const result = await fetch('http://locahost:5151/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+
+                    },
+                    mode : 'cors'
+                 })
+            // })
+
+            if(result.status == 200){
+
+                localStorage.setItem('tokenKey') = "";
+                
+                window.location.href = "index.html";
+            }
+        }
+        
+    }
+        // return;
     });
 
 })
