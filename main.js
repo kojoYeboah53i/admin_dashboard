@@ -35,6 +35,37 @@ window.addEventListener('load', () => {
     }
 
 
+
+
+    //create employee 
+    const createEm = document.querySelector('button.create-employee')
+    console.log(createEm)
+    createEm.addEventListener('click', async (e) => {
+        e.preventDefault();
+        alert("attempting to create")
+
+        const getToken = localStorage.getItem('tokenKey');
+
+        const result = await fetch('http://localhost:5151/create-employee', {
+            method: 'POST',
+            mode : 'cors',
+            headers : {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: getToken
+            })
+        }) //fetch ends here
+
+        if(result.status == 200 || result.status == 201){
+            let response = await result.json();
+            console.log(response)
+        }
+
+
+    })
+
+   // get employee
     async function getAllEmployees() {
         const results = await fetch('https://kojoyeboah53i-d962a2da663c.herokuapp.com/api/ordabl/employer/1')
         const response = await results.json();
@@ -201,7 +232,7 @@ window.addEventListener('load', () => {
 
     // logout
     const logout = document.querySelector(".logout");
-    logout.addEventListener("click", async () => {
+    logout.addEventListener("click", async (e) => {
         e.preventDefault();
         const confirmed = confirm("are u sure u want to logout");
 
@@ -212,19 +243,17 @@ window.addEventListener('load', () => {
             console.log(token)
             if(token != ""){
                 
-                const result = await fetch('http://locahost:5151/api/logout', {
+                const result = await fetch('http://localhost:5151/api/logout', {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json"
-
                     },
                     mode : 'cors'
                  })
-            // })
 
             if(result.status == 200){
 
-                localStorage.setItem('tokenKey') = "";
+                localStorage.removeItem('tokenKey');
                 
                 window.location.href = "index.html";
             }

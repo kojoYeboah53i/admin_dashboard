@@ -64,9 +64,6 @@
                     let name = response.name;
                     let token = response.token;
 
-                    //clear previous storage
-                    localStorage.setItem('name', "");
-                    localStorage.setItem('token', "");
 
                     //set new storage
                     localStorage.setItem('name', name);
